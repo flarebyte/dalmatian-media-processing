@@ -1,7 +1,10 @@
 {
   "name": "dalmatian-media-processing",
   "description": "Image and media processing library for Dalmatian media tape format",
-  "keywords": ["image processing", "svg"],
+  "keywords": [
+    "image processing",
+    "svg"
+  ],
   "version": "0.1.0",
   "author": {
     "name": "Olivier Huin",
@@ -56,7 +59,13 @@
     "norm": "npx baldrick-ts generate -f lib -ga 'flarebyte' -ch 'Flarebyte.com' -cy 2022 -l MIT && yarn md:fix",
     "norm:g": "baldrick-ts generate -f lib -ga 'flarebyte' -ch 'Flarebyte.com' -cy 2022 -l MIT && yarn md:fix"
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "fraction.js": "^4.2.0"
+  },
+  "devDependencies": {
+    "baldrick-dev-ts": "^0.15.0",
+    "baldrick-tsconfig-es2020": "^0.9.0",
+    "typescript": "^4.6.4"
+  },
   "peerDependencies": {}
 }
