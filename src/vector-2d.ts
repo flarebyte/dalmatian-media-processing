@@ -37,7 +37,11 @@ export class V2d {
   }
 
   toDalmatianString() {
-    return `${this._x} ${this._y}`;
+    return `${this._x.toFraction()} ${this._y.toFraction()}`;
+  }
+
+  toString() {
+    return this.toDalmatianString();
   }
 
   toCartesianString(dpu: number) {

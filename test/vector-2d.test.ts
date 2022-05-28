@@ -11,11 +11,11 @@ describe('vector-2d', () => {
       Array [
         Object {
           "cartesian": "(150.000,75.000)",
-          "dalmatian": "0.5 0.25",
+          "dalmatian": "1/2 1/4",
         },
         Object {
           "cartesian": "(-150.000,-100.000)",
-          "dalmatian": "-0.5 -0.(3)",
+          "dalmatian": "-1/2 -1/3",
         },
       ]
     `);
