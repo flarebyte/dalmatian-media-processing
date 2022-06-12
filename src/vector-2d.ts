@@ -49,4 +49,16 @@ export class V2d {
     const y = this._y.mul(dpu).valueOf().toFixed(3);
     return `(${x},${y})`;
   }
+
+  toSvgString(dpu: number, yPixOffset: number) {
+    const x = this._x.mul(dpu).valueOf().toFixed(3);
+    const y = (yPixOffset + this._y.mul(-1).mul(dpu).valueOf()).toFixed(3);
+    return `(${x} ${y})`;
+  }
+
+  toFloatString() {
+    const x = this._x.valueOf().toFixed(3);
+    const y = this._y.valueOf().toFixed(3);
+    return `(${x} ${y})`;
+  }
 }
