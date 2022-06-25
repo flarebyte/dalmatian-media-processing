@@ -27,7 +27,7 @@ export class V2dRect {
   }
 
   toString() {
-    return `xy ${this._xy} width ${this._width} height ${this.height}`;
+    return `xy ${this._xy} width ${this._width.toFraction()} height ${this.height.toFraction()}`;
   }
 
 

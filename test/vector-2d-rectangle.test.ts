@@ -7,6 +7,6 @@ const pointB = V2d.fromString('1/2 2/5');
 describe('vector-2d-rectangle', () => {
   it('should provide fromOppositePoints', () => {
     const actual = V2dRect.fromOppositePoints(pointA, pointB);
-    expect(actual.toString()).toStrictEqual('xy 1/4 1/5 width 0.25 height 0.2');
+    expect(actual.toString()).toStrictEqual('xy 1/4 1/5 width 1/4 height 1/5');
   });
 });
