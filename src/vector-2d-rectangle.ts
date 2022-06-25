@@ -19,4 +19,21 @@ export class V2dRect {
   get height(): Fraction {
     return this._height;
   }
+
+  equals(other: V2dRect) {
+    const thisOne = [this._xy, this._width, this._height];
+    const otherOne = [other._xy, other._width, other._height];
+    return thisOne === otherOne;
+  }
+
+  toString() {
+    return `xy ${this._xy} width ${this._width} height ${this.height}`;
+  }
+
+
+  static fromOppositePoints(leftBottom: V2d, rightTop: V2d) {
+    const width = rightTop.x.add(leftBottom.x.neg());
+    const height = rightTop.y.add(leftBottom.y.neg());
+    return new V2dRect(leftBottom, width, height);
+  }
 }
