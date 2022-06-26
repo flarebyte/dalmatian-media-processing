@@ -14,10 +14,7 @@ export class V2dList {
     return this._values;
   }
 
-  static fromDalmatianString(
-    someStr: string,
-    separator: string = ' '
-  ): V2dList {
+  static fromDalmatianString(someStr: string, separator = ' '): V2dList {
     const splitted = someStr.trim().split(separator);
     if (separator === ' ') {
       const defaultFraction = new Fraction(0);

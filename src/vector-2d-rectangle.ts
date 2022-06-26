@@ -27,9 +27,10 @@ export class V2dRect {
   }
 
   toString() {
-    return `xy ${this._xy} width ${this._width.toFraction()} height ${this.height.toFraction()}`;
+    return `xy ${
+      this._xy
+    } width ${this._width.toFraction()} height ${this.height.toFraction()}`;
   }
-
 
   static fromOppositePoints(leftBottom: V2d, rightTop: V2d) {
     const width = rightTop.x.add(leftBottom.x.neg());

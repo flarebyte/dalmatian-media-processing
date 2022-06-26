@@ -94,7 +94,7 @@ export class V2d {
   }
 
   getAngle() {
-    const x = this._x.equals(0) ? new Fraction(1, 1000000) : this._x;
+    const x = this._x.equals(0) ? new Fraction(1, 1_000_000) : this._x;
     return atanFract(this.y.div(x));
   }
 
