@@ -36,4 +36,20 @@ export class V2dList {
   toString() {
     return this._values.map((value) => value.toString()).join(', ');
   }
+
+  toDalmatianList() {
+    return this._values.map((value) => value.toDalmatianString());
+  }
+
+  toDalmatianString(separator: string = ' '){
+    this.toDalmatianList().join(separator)
+  }
+
+  clone() {
+    return new V2dList(this._values.map((value) => value.clone()));
+  }
+
+  neg() {
+    return new V2dList(this._values.map((value) => value.clone().neg()));
+  }
 }

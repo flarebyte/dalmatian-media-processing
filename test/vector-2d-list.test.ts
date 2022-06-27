@@ -8,4 +8,8 @@ describe('vector-2d-list', () => {
       V2dList.fromDalmatianString(actual.toString(), ', ').toString()
     ).toStrictEqual(actual.toString());
   });
+  it('should negate a list of V2d', ()=> {
+    const actual = V2dList.fromDalmatianString('1/4 -1/5 1/3 1/7 1/9 -1/11').neg();
+    expect(actual.toString()).toStrictEqual('-1/4 1/5, -1/3 -1/7, -1/9 1/11')
+  })
 });
