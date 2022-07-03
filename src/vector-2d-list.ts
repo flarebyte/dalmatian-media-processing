@@ -51,7 +51,7 @@ export class V2dList {
     return this._values.map((value) => value.toDalmatianString());
   }
 
-  toDalmatianString(separator: string = ' ') {
+  toDalmatianString(separator = ' ') {
     this.toDalmatianList().join(separator);
   }
 

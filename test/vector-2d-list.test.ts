@@ -24,13 +24,28 @@ describe('vector-2d-list', () => {
     ).neg();
     expect(actual.toString()).toStrictEqual('-1/4 1/5, -1/3 -1/7, -1/9 1/11');
   });
-  it('should add 2d list', () => {
+  it('should add 2d lists', () => {
     const sumOfList = listABCDE.add(listCDE);
-    expect(sumOfList.toString()).toStrictEqual(listCDE.add(listABCDE).toString());
+    expect(sumOfList.toString()).toStrictEqual(
+      listCDE.add(listABCDE).toString()
+    );
     expect(sumOfList.toString()).toStrictEqual(
       '11/28 2/9, 8/65 17/138, 24/119 31/45, -1/13 -1/23, 1/17 4/5'
     );
     expect(sumOfList.at(0)?.toString()).toStrictEqual(ptA.add(ptC).toString());
     expect(sumOfList.at(-1)?.toString()).toStrictEqual(ptE.toString());
+  });
+  it('should substract 2d lists', () => {
+    const substraction = listABCDE.sub(listCDE);
+    expect(substraction.toString()).toStrictEqual(
+      listCDE.sub(listABCDE).neg().toString()
+    );
+    expect(substraction.at(0)?.toString()).toStrictEqual(
+      ptA.sub(ptC).toString()
+    );
+    expect(substraction.at(2)?.toString()).toStrictEqual(
+      ptC.sub(ptE).toString()
+    );
+    expect(substraction.at(-1)?.toString()).toStrictEqual(ptE.toString());
   });
 });
