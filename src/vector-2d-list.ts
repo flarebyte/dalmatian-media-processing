@@ -116,18 +116,31 @@ export class V2dList {
     const reversed = this.reverse();
     return new V2dList([...this.clone().values, ...reversed.values]);
   }
+  /**
+   * When do we need this ?
+   * @param n
+   * @returns
+   */
   getMedianRange(n: number) {
     const idx = Math.floor(this.values.length / n);
-    const xx: Fraction[] = [...this._values].map((v) => v.x).sort(compare2Fractions);
-    const yy: Fraction[] = [...this._values].map((v) => v.y).sort(compare2Fractions);
+    const xx: Fraction[] = [...this._values]
+      .map((v) => v.x)
+      .sort(compare2Fractions);
+    const yy: Fraction[] = [...this._values]
+      .map((v) => v.y)
+      .sort(compare2Fractions);
     const width = xx.at(-idx)?.sub(xx.at(idx) || one);
     const height = yy.at(-idx)?.sub(yy.at(idx) || one);
     return new V2d(width || one, height || one);
   }
 
   getContainingRect() {
-    const xx: Fraction[] = [...this._values].map((v) => v.x).sort(compare2Fractions);
-    const yy: Fraction[] = [...this._values].map((v) => v.y).sort(compare2Fractions);
+    const xx: Fraction[] = [...this._values]
+      .map((v) => v.x)
+      .sort(compare2Fractions);
+    const yy: Fraction[] = [...this._values]
+      .map((v) => v.y)
+      .sort(compare2Fractions);
     return V2dRect.fromOppositePoints(
       new V2d(xx.at(0) || one, yy.at(0) || one),
       new V2d(xx.at(-1) || one, yy.at(-1) || one)
