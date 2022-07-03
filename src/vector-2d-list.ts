@@ -58,10 +58,8 @@ export class V2dList {
     this.toDalmatianList().join(separator);
   }
 
-  at(index: number, defaultValue?: V2d) {
-    return defaultValue
-      ? this._values.at(index) || defaultValue
-      : this._values.at(index);
+  at(index: number) {
+    return this._values.at(index);
   }
 
   size() {
