@@ -1,9 +1,12 @@
 import Fraction from 'fraction.js';
+import { compare2Fractions } from './fraction-math';
 import { V2d } from './vector-2d';
+import { V2dRect } from './vector-2d-rectangle';
 
 const range = (n: number) => [...new Array(n).keys()]; // eslint-disable-line unicorn/no-new-array
 
 const defaultFiller = V2d.fromString('0/1 0/1');
+const one = new Fraction('1/1');
 
 export class V2dList {
   private _values: V2d[];
@@ -108,9 +111,26 @@ export class V2dList {
   reverse() {
     return new V2dList(this.clone()._values.reverse());
   }
-  
+
   mirror() {
     const reversed = this.reverse();
     return new V2dList([...this.clone().values, ...reversed.values]);
+  }
+  getMedianRange(n: number) {
+    const idx = Math.floor(this.values.length / n);
+    const xx: Fraction[] = [...this._values].map((v) => v.x).sort(compare2Fractions);
+    const yy: Fraction[] = [...this._values].map((v) => v.y).sort(compare2Fractions);
+    const width = xx.at(-idx)?.sub(xx.at(idx) || one);
+    const height = yy.at(-idx)?.sub(yy.at(idx) || one);
+    return new V2d(width || one, height || one);
+  }
+
+  getContainingRect() {
+    const xx: Fraction[] = [...this._values].map((v) => v.x).sort(compare2Fractions);
+    const yy: Fraction[] = [...this._values].map((v) => v.y).sort(compare2Fractions);
+    return V2dRect.fromOppositePoints(
+      new V2d(xx.at(0) || one, yy.at(0) || one),
+      new V2d(xx.at(-1) || one, yy.at(-1) || one)
+    );
   }
 }

@@ -68,11 +68,21 @@ describe('vector-2d-list', () => {
     );
   });
 
-  it('should provide reverse', ()=> {
-        expect(listCDE.reverse().toString()).toStrictEqual(new V2dList([ptE, ptD, ptC]).toString())
-  })
+  it('should provide reverse', () => {
+    expect(listCDE.reverse().toString()).toStrictEqual(
+      new V2dList([ptE, ptD, ptC]).toString()
+    );
+  });
 
-  it('should provide mirror values', ()=> {
-    expect(listCDE.mirror().toString()).toStrictEqual(new V2dList([ptC, ptD, ptE, ptE, ptD, ptC]).toString())
-})
+  it('should provide mirror values', () => {
+    expect(listCDE.mirror().toString()).toStrictEqual(
+      new V2dList([ptC, ptD, ptE, ptE, ptD, ptC]).toString()
+    );
+  });
+
+  it('should calculate the containing rectangle', () => {
+    expect(listCDE.getContainingRect().toString()).toStrictEqual(
+      'xy -1/13 -1/9 width 20/91 height 41/45'
+    );
+  });
 });
