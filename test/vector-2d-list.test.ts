@@ -1,3 +1,4 @@
+import Fraction from 'fraction.js';
 import { V2d } from '../src/vector-2d';
 import { V2dList } from '../src/vector-2d-list';
 
@@ -47,5 +48,23 @@ describe('vector-2d-list', () => {
       ptC.sub(ptE).toString()
     );
     expect(substraction.at(-1)?.toString()).toStrictEqual(ptE.toString());
+  });
+
+  it('should multiply 2d lists with a scalar value', () => {
+    expect(listCDE.mul(new Fraction('1/1')).toString()).toStrictEqual(
+      listCDE.toString()
+    );
+    expect(listCDE.mul(new Fraction('1/5')).toString()).toStrictEqual(
+      '1/35 -1/45, -1/65 -1/115, 1/85 4/25'
+    );
+  });
+
+  it('should should provide negative values', () => {
+    expect(listCDE.negX().negY().toString()).toStrictEqual(
+      listCDE.neg().toString()
+    );
+    expect(listCDE.negX().toString()).toStrictEqual(
+      '-1/7 -1/9, 1/13 -1/23, -1/17 4/5'
+    );
   });
 });

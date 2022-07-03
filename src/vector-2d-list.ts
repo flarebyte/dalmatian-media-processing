@@ -73,6 +73,14 @@ export class V2dList {
     return new V2dList(this._values.map((value) => value.clone().neg()));
   }
 
+  negX() {
+    return new V2dList(this._values.map((value) => value.clone().negX()));
+  }
+
+  negY() {
+    return new V2dList(this._values.map((value) => value.clone().negY()));
+  }
+
   add(b: V2dList) {
     const maxLength = Math.max(this._values.length, b._values.length);
     const aList = V2dList.ljust(this, maxLength).values;
@@ -91,5 +99,10 @@ export class V2dList {
       (aList[i] || defaultFiller).sub(bList[i] || defaultFiller)
     );
     return new V2dList(added);
+  }
+
+  mul(scalar: Fraction) {
+    const values = this._values.map((value) => value.mul(scalar));
+    return new V2dList(values);
   }
 }
