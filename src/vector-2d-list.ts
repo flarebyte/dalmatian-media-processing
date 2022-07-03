@@ -3,6 +3,8 @@ import { V2d } from './vector-2d';
 
 const range = (n: number) => [...new Array(n).keys()]; // eslint-disable-line unicorn/no-new-array
 
+const defaultFiller = V2d.fromString('0/1 0/1');
+
 export class V2dList {
   private _values: V2d[];
 
@@ -33,6 +35,14 @@ export class V2dList {
     }
   }
 
+  static ljust(v2dlist: V2dList, length: number, filler: V2d = defaultFiller) {
+    const values = v2dlist._values.map((value) => value.clone());
+    while (values.length < length) {
+      values.push(filler);
+    }
+    return new V2dList(values);
+  }
+
   toString() {
     return this._values.map((value) => value.toString()).join(', ');
   }
@@ -41,8 +51,18 @@ export class V2dList {
     return this._values.map((value) => value.toDalmatianString());
   }
 
-  toDalmatianString(separator: string = ' '){
-    this.toDalmatianList().join(separator)
+  toDalmatianString(separator: string = ' ') {
+    this.toDalmatianList().join(separator);
+  }
+
+  at(index: number, defaultValue?: V2d) {
+    return defaultValue
+      ? this._values.at(index) || defaultValue
+      : this._values.at(index);
+  }
+
+  size() {
+    return this._values.length;
   }
 
   clone() {
@@ -51,5 +71,25 @@ export class V2dList {
 
   neg() {
     return new V2dList(this._values.map((value) => value.clone().neg()));
+  }
+
+  add(b: V2dList) {
+    const maxLength = Math.max(this._values.length, b._values.length);
+    const aList = V2dList.ljust(this, maxLength).values;
+    const bList = V2dList.ljust(b, maxLength).values;
+    const added = range(maxLength).map((i) =>
+      (aList[i] || defaultFiller).add(bList[i] || defaultFiller)
+    );
+    return new V2dList(added);
+  }
+
+  sub(b: V2dList) {
+    const maxLength = Math.max(this._values.length, b._values.length);
+    const aList = V2dList.ljust(this, maxLength).values;
+    const bList = V2dList.ljust(b, maxLength).values;
+    const added = range(maxLength).map((i) =>
+      (aList[i] || defaultFiller).sub(bList[i] || defaultFiller)
+    );
+    return new V2dList(added);
   }
 }
