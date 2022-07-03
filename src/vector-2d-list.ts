@@ -105,4 +105,12 @@ export class V2dList {
     const values = this._values.map((value) => value.mul(scalar));
     return new V2dList(values);
   }
+  reverse() {
+    return new V2dList(this.clone()._values.reverse());
+  }
+  
+  mirror() {
+    const reversed = this.reverse();
+    return new V2dList([...this.clone().values, ...reversed.values]);
+  }
 }

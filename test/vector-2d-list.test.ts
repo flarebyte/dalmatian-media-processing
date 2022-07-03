@@ -59,7 +59,7 @@ describe('vector-2d-list', () => {
     );
   });
 
-  it('should should provide negative values', () => {
+  it('should provide negative values', () => {
     expect(listCDE.negX().negY().toString()).toStrictEqual(
       listCDE.neg().toString()
     );
@@ -67,4 +67,12 @@ describe('vector-2d-list', () => {
       '-1/7 -1/9, 1/13 -1/23, -1/17 4/5'
     );
   });
+
+  it('should provide reverse', ()=> {
+        expect(listCDE.reverse().toString()).toStrictEqual(new V2dList([ptE, ptD, ptC]).toString())
+  })
+
+  it('should provide mirror values', ()=> {
+    expect(listCDE.mirror().toString()).toStrictEqual(new V2dList([ptC, ptD, ptE, ptE, ptD, ptC]).toString())
+})
 });
