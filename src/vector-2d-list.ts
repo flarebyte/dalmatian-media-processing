@@ -55,7 +55,7 @@ export class V2dList {
   }
 
   toDalmatianString(separator = ' ') {
-    this.toDalmatianList().join(separator);
+    return this.toDalmatianList().join(separator);
   }
 
   at(index: number) {

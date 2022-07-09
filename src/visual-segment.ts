@@ -3,8 +3,6 @@ import { V2dList } from './vector-2d-list';
 
 export type SegmentShape = 'Z' | 'M' | 'L' | 'C' | 'S' | 'Q' | 'T' | 'E';
 
-const errV2d = V2d.fromString('1/1 1/1');
-
 export class VSegment {
   private _action: SegmentShape;
   private _pt?: V2d;
@@ -31,7 +29,7 @@ export class VSegment {
   }
 
   static fromClose() {
-    return new VSegment('C');
+    return new VSegment('Z');
   }
 
   static fromMoveTo(pt: V2d) {
@@ -108,5 +106,21 @@ export class VSegment {
       this._pt1 === other._pt1 &&
       this._pt2 === other._pt2
     );
+  }
+  toDalmatianString() {
+    if (this._action == 'Z') {
+      return this._action;
+    } else if (['M', 'L', 'T'].includes(this._action)) {
+      return `${this._action} ${this._pt?.toDalmatianString()}`;
+    } else if (['S', 'Q'].includes(this._action)) {
+      return `${
+        this._action
+      } ${this._pt1?.toDalmatianString()} ${this._pt?.toDalmatianString()}`;
+    }
+    return this._action == 'C'
+      ? `${
+          this._action
+        } ${this._pt1?.toDalmatianString()} ${this._pt2?.toDalmatianString()} ${this._pt?.toDalmatianString()}`
+      : 'E';
   }
 }
