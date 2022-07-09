@@ -1,6 +1,8 @@
+import Fraction from 'fraction.js';
 import { V2d } from './vector-2d';
 import { V2dList } from './vector-2d-list';
 
+const fractionZero = new Fraction(0);
 export type SegmentShape = 'Z' | 'M' | 'L' | 'C' | 'S' | 'Q' | 'T' | 'E';
 
 export class VSegment {
@@ -143,5 +145,15 @@ export class VSegment {
           yPixOffset
         )}`
       : 'E';
+  }
+  rotate(angle: Fraction) {
+    if (angle === fractionZero) {
+      return this;
+    }
+    const pt = this._pt === undefined ? undefined : this._pt.rotate(angle);
+    const pt1 = this._pt1 === undefined ? undefined : this._pt1.rotate(angle);
+    const pt2 = this._pt2 === undefined ? undefined : this._pt2.rotate(angle);
+
+    return new VSegment(this._action, pt, pt1, pt2);
   }
 }

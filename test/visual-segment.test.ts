@@ -1,3 +1,4 @@
+import Fraction from 'fraction.js';
 import { V2d } from '../src/vector-2d';
 import { V2dList } from '../src/vector-2d-list';
 import { VSegment } from '../src/visual-segment';
@@ -75,5 +76,17 @@ describe('visual-segment', () => {
     expect(
       VSegment.fromQuadraticBezier(ptE, ptC).toSvgString(dpu, 0)
     ).toStrictEqual('Q 14.286 11.111 5.882 -80.000');
+  });
+  it('should rotate', () => {
+    const r90 = new Fraction('1/4');
+    expect(VSegment.fromClose().rotate(r90)).toStrictEqual(
+      VSegment.fromClose()
+    );
+    expect(
+      VSegment.fromLineTo(ptA).rotate(r90).toDalmatianString()
+    ).toStrictEqual('L -1/3 1/4');
+    expect(
+      VSegment.fromCubicBezier(ptE, ptC, ptD).rotate(r90).toDalmatianString()
+    ).toStrictEqual('C 1/9 1/7 1/23 -1/13 -4/5 1/17');
   });
 });

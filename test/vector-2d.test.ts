@@ -1,4 +1,7 @@
+import Fraction from 'fraction.js';
 import { V2d } from '../src/vector-2d';
+
+const ptA = V2d.fromString('1/4 1/3');
 
 describe('vector-2d', () => {
   it('should display the right representation', () => {
@@ -25,5 +28,14 @@ describe('vector-2d', () => {
         },
       ]
     `);
+  });
+  it('should rotate', () => {
+    expect(ptA.rotate(new Fraction('1/2')).toString()).toStrictEqual(ptA.neg().toString());
+    expect(ptA.rotate(new Fraction('1/4')).toString()).toStrictEqual(
+      V2d.fromString('-1/3 1/4').toString()
+    );
+    expect(ptA.rotate(new Fraction('-1/4')).toString()).toStrictEqual(
+      V2d.fromString('1/3 -1/4').toString()
+    );
   });
 });
