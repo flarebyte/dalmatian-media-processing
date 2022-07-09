@@ -32,4 +32,29 @@ describe('visual-segment', () => {
       VSegment.fromQuadraticBezier(ptE, ptC).toDalmatianString()
     ).toStrictEqual('Q 1/7 -1/9 1/17 4/5');
   });
+  it('should provide fromDalmatianString', () => {
+    expect(VSegment.fromDalmatianString('Z').toDalmatianString()).toStrictEqual(
+      'Z'
+    );
+    expect(
+      VSegment.fromDalmatianString('L 1/7 -1/9').toDalmatianString()
+    ).toStrictEqual('L 1/7 -1/9');
+    expect(
+      VSegment.fromDalmatianString('M -1/7 -1/9').toDalmatianString()
+    ).toStrictEqual('M -1/7 -1/9');
+    expect(
+      VSegment.fromDalmatianString('T 1/4 1/111').toDalmatianString()
+    ).toStrictEqual('T 1/4 1/111');
+    expect(
+      VSegment.fromDalmatianString('S 1/4 1/113 1/2 2/113').toDalmatianString()
+    ).toStrictEqual('S 1/4 1/113 1/2 2/113');
+    expect(
+      VSegment.fromDalmatianString('Q 1/4 1/115 1/2 2/115').toDalmatianString()
+    ).toStrictEqual('Q 1/4 1/115 1/2 2/115');
+    expect(
+      VSegment.fromDalmatianString(
+        'C 1/4 1/117 1/2 2/117 3/4 1/39'
+      ).toDalmatianString()
+    ).toStrictEqual('C 1/4 1/117 1/2 2/117 3/4 1/39');
+  });
 });
