@@ -4,12 +4,12 @@ const radians = (degrees: Fraction): number =>
   degrees.valueOf() * (Math.PI / 180);
 
 export const cosFract = (fraction: Fraction): Fraction => {
-  const numerator = (1000 * Math.sin(radians(fraction.mul(360)))).toFixed(0);
+  const numerator = (1000 * Math.cos(radians(fraction.mul(360)))).toFixed(0);
   return new Fraction(numerator, 1000);
 };
 
 export const sinFract = (fraction: Fraction): Fraction => {
-  const numerator = (1000 * Math.cos(radians(fraction.mul(360)))).toFixed(0);
+  const numerator = (1000 * Math.sin(radians(fraction.mul(360)))).toFixed(0);
   return new Fraction(numerator, 1000);
 };
 
