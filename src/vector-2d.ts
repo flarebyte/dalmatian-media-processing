@@ -53,13 +53,13 @@ export class V2d {
   toSvgString(dpu: number, yPixOffset: number) {
     const x = this._x.mul(dpu).valueOf().toFixed(3);
     const y = (yPixOffset + this._y.mul(-1).mul(dpu).valueOf()).toFixed(3);
-    return `(${x} ${y})`;
+    return `${x} ${y}`;
   }
 
   toFloatString() {
     const x = this._x.valueOf().toFixed(3);
     const y = this._y.valueOf().toFixed(3);
-    return `(${x} ${y})`;
+    return `${x} ${y}`;
   }
 
   add(b: V2d) {

@@ -123,4 +123,25 @@ export class VSegment {
         } ${this._pt1?.toDalmatianString()} ${this._pt2?.toDalmatianString()} ${this._pt?.toDalmatianString()}`
       : 'E';
   }
+  toSvgString(dpu: number, yPixOffset: number) {
+    if (this._action == 'Z') {
+      return this._action;
+    } else if (['M', 'L', 'T'].includes(this._action)) {
+      return `${this._action} ${this._pt?.toSvgString(dpu, yPixOffset)}`;
+    } else if (['S', 'Q'].includes(this._action)) {
+      return `${this._action} ${this._pt1?.toSvgString(
+        dpu,
+        yPixOffset
+      )} ${this._pt?.toSvgString(dpu, yPixOffset)}`;
+    }
+    return this._action == 'C'
+      ? `${this._action} ${this._pt1?.toSvgString(
+          dpu,
+          yPixOffset
+        )} ${this._pt2?.toSvgString(dpu, yPixOffset)} ${this._pt?.toSvgString(
+          dpu,
+          yPixOffset
+        )}`
+      : 'E';
+  }
 }

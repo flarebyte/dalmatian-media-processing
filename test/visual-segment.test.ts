@@ -57,4 +57,23 @@ describe('visual-segment', () => {
       ).toDalmatianString()
     ).toStrictEqual('C 1/4 1/117 1/2 2/117 3/4 1/39');
   });
+  it('should provide toSvgString', () => {
+    const dpu = 100;
+    expect(VSegment.fromLineTo(ptC).toSvgString(dpu, 0)).toStrictEqual(
+      'L 14.286 11.111'
+    );
+    expect(VSegment.fromMoveTo(ptA).toSvgString(dpu, 0)).toStrictEqual(
+      'M 25.000 -33.333'
+    );
+    expect(VSegment.fromClose().toSvgString(dpu, 0)).toStrictEqual('Z');
+    expect(
+      VSegment.fromCubicBezier(ptE, ptC, ptD).toSvgString(dpu, 0)
+    ).toStrictEqual('C 14.286 11.111 -7.692 4.348 5.882 -80.000');
+    expect(
+      VSegment.fromSmoothBezier(ptE, ptC).toSvgString(dpu, 0)
+    ).toStrictEqual('S 14.286 11.111 5.882 -80.000');
+    expect(
+      VSegment.fromQuadraticBezier(ptE, ptC).toSvgString(dpu, 0)
+    ).toStrictEqual('Q 14.286 11.111 5.882 -80.000');
+  });
 });
