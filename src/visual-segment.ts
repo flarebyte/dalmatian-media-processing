@@ -170,4 +170,11 @@ export class VSegment {
       this._pt2 !== undefined ? this._pt2.mul(scaleFactor) : undefined;
     return new VSegment(this._action, pt, pt1, pt2);
   }
+  isMostlyInsideRect(xy: V2d, width: Fraction, height: Fraction) {
+    if (this._pt !== undefined) {
+      return this._pt?.isInsideRect(xy, width, height);
+    } else {
+      return true;
+    }
+  }
 }
