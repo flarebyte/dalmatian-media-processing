@@ -1,4 +1,7 @@
+import Fraction from 'fraction.js';
+import { V2d } from '../src/vector-2d';
 import { VPath } from '../src/visual-path';
+const ptE = V2d.fromString('1/17 4/5');
 
 describe('visual-path', () => {
   it('should provide fromDalmatianString', () => {
@@ -50,5 +53,30 @@ describe('visual-path', () => {
       E: 0,
       Total: 8,
     });
+  });
+
+  it('should rotate', () => {
+    const r90 = new Fraction('1/4');
+    const r180 = new Fraction('1/2');
+    const vpath = VPath.fromDalmatianString(
+      '[ M -1/7 -1/9,L 1/7 -1/9, L 1/7 -1/11, Q 1/4 1/115 1/2 2/115,T 1/4 1/111,C 1/4 1/117 1/2 2/117 3/4 1/39,S 1/4 1/113 1/2 2/113,Z ]'
+    );
+    expect(
+      vpath.rotate(r90).rotate(r90).rotate(r90).rotate(r90).toString()
+    ).toStrictEqual(vpath.toString());
+    expect(vpath.rotate(r90).rotate(r90).toString()).toStrictEqual(
+      vpath.rotate(r180).toString()
+    );
+    expect(vpath.rotate(r180).toDalmatianString()).toStrictEqual(
+      '[ M 1/7 1/9,L -1/7 1/9,L -1/7 1/11,Q -1/4 -1/115 -1/2 -2/115,T -1/4 -1/111,C -1/4 -1/117 -1/2 -2/117 -3/4 -1/39,S -1/4 -1/113 -1/2 -2/113,Z ]'
+    );
+  });
+  it('should translate', () => {
+    const vpath = VPath.fromDalmatianString(
+      '[ M -1/7 -1/9,L 1/7 -1/9, L 1/7 -1/11, Q 1/4 1/115 1/2 2/115,T 1/4 1/111,C 1/4 1/117 1/2 2/117 3/4 1/39,S 1/4 1/113 1/2 2/113,Z ]'
+    );
+    expect(vpath.translate(ptE).translate(ptE.neg()).toString()).toStrictEqual(
+      vpath.toString()
+    );
   });
 });

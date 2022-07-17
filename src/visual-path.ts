@@ -1,3 +1,4 @@
+import Fraction from 'fraction.js';
 import { V2d } from './vector-2d';
 import { countOfPoints, VSegment } from './visual-segment';
 
@@ -76,5 +77,26 @@ export class VPath {
       E: actions.filter((action) => action === 'E').length,
       Total: actions.length,
     };
+  }
+  rotate(angle: Fraction) {
+    const newsegments = this._segments.map((segment) => segment.rotate(angle));
+    return new VPath(newsegments);
+  }
+  translate(offset: V2d) {
+    const newsegments = this._segments.map((segment) =>
+      segment.translate(offset)
+    );
+    return new VPath(newsegments);
+  }
+  scale(scaleFactor: Fraction) {
+    const newsegments = this._segments.map((segment) =>
+      segment.scale(scaleFactor)
+    );
+    return new VPath(newsegments);
+  }
+  isMostlyInsideRect(xy: V2d, width: Fraction, height: Fraction) {
+    return this._segments.every((segment) =>
+      segment.isMostlyInsideRect(xy, width, height)
+    );
   }
 }
