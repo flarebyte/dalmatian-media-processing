@@ -79,4 +79,14 @@ describe('visual-path', () => {
       vpath.toString()
     );
   });
+  it('should scale', () => {
+    const threetimes = new Fraction('3/1');
+    const onethird = new Fraction('1/3');
+    const vpath = VPath.fromDalmatianString(
+      '[ M -1/7 -1/9,L 1/7 -1/9, L 1/7 -1/11, Q 1/4 1/115 1/2 2/115,T 1/4 1/111,C 1/4 1/117 1/2 2/117 3/4 1/39,S 1/4 1/113 1/2 2/113,Z ]'
+    );
+    expect(vpath.scale(threetimes).scale(onethird).toString()).toStrictEqual(
+      vpath.toString()
+    );
+  });
 });
