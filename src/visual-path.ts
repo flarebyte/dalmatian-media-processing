@@ -63,4 +63,18 @@ export class VPath {
       .map((segment) => segment.toSvgString(dpu, yPixOffset))
       .join(' ');
   }
+  toActionFrequency() {
+    const actions = this._segments.map((segment) => segment.action);
+    return {
+      M: actions.filter((action) => action === 'M').length,
+      L: actions.filter((action) => action === 'L').length,
+      C: actions.filter((action) => action === 'C').length,
+      S: actions.filter((action) => action === 'S').length,
+      Q: actions.filter((action) => action === 'Q').length,
+      T: actions.filter((action) => action === 'T').length,
+      Z: actions.filter((action) => action === 'Z').length,
+      E: actions.filter((action) => action === 'E').length,
+      Total: actions.length,
+    };
+  }
 }
