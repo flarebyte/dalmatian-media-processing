@@ -49,4 +49,13 @@ export class VPath {
       .map((pt) => pt.toCartesianString(dpu))
       .join(separator);
   }
+  toCoreSvgString(dpu: number, yPixOffset: number) {
+    return (
+      this.toCorePoints()
+        .map((pt) => pt.toSvgString(dpu, yPixOffset))
+        .map((svgPoint) => `L ${svgPoint}`)
+        .join(' ')
+        .replace('L', 'M') + ' Z'
+    );
+  }
 }
