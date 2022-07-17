@@ -178,3 +178,19 @@ export class VSegment {
     }
   }
 }
+
+export const countOfPoints = (value: SegmentShape): 0 | 1 | 2 | 3 => {
+  if (value === 'Z') {
+    return 0;
+  }
+  if (value === 'M' || value === 'L' || value == 'T') {
+    return 1;
+  }
+  if (value === 'S' || value === 'Q') {
+    return 2;
+  }
+  if (value === 'C') {
+    return 3;
+  }
+  return 0;
+};

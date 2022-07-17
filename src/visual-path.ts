@@ -1,4 +1,8 @@
-import { VSegment } from './visual-segment';
+import { V2d } from './vector-2d';
+import { countOfPoints, VSegment } from './visual-segment';
+
+const isV2d = (value: unknown): value is V2d =>
+  typeof value !== 'undefined' || value !== null;
 
 export class VPath {
   private _segments: VSegment[];
@@ -31,5 +35,18 @@ export class VPath {
       VSegment.fromDalmatianString(segment)
     );
     return new VPath(segments);
+  }
+
+  toCorePoints() {
+    return this._segments
+      .filter((segment) => countOfPoints(segment.action) > 0)
+      .map((segment) => segment.pt)
+      .filter(isV2d);
+  }
+
+  toCoreCartesianString(dpu: number, separator = '') {
+    return this.toCorePoints()
+      .map((pt) => pt.toCartesianString(dpu))
+      .join(separator);
   }
 }
