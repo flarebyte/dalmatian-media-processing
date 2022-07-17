@@ -10,11 +10,12 @@ definitions](https://img.shields.io/npm/types/dalmatian-media-processing)
 ![node-current](https://img.shields.io/node/v/dalmatian-media-processing)
 ![NPM](https://img.shields.io/npm/l/dalmatian-media-processing)
 
->
+> Image and media processing library for Dalmatian media format
 
->
+See [visual experiments](https://github.com/olih/visual-experiments):
+* [fracgeometry.py](https://github.com/olih/visual-experiments/blob/master/fracgeometry.py)
+* [dalmatianmedia.py](https://github.com/olih/visual-experiments/blob/master/dalmatianmedia.py)
 
-Image and media processing library for Dalmatian media format
 
 ## Documentation and links
 

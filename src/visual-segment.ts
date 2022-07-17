@@ -156,4 +156,18 @@ export class VSegment {
 
     return new VSegment(this._action, pt, pt1, pt2);
   }
+  translate(offset: V2d) {
+    const pt = this._pt !== undefined ? this._pt.add(offset) : undefined;
+    const pt1 = this._pt1 !== undefined ? this._pt1.add(offset) : undefined;
+    const pt2 = this._pt2 !== undefined ? this._pt2.add(offset) : undefined;
+    return new VSegment(this._action, pt, pt1, pt2);
+  }
+  scale(scaleFactor: Fraction) {
+    const pt = this._pt !== undefined ? this._pt.mul(scaleFactor) : undefined;
+    const pt1 =
+      this._pt1 !== undefined ? this._pt1.mul(scaleFactor) : undefined;
+    const pt2 =
+      this._pt2 !== undefined ? this._pt2.mul(scaleFactor) : undefined;
+    return new VSegment(this._action, pt, pt1, pt2);
+  }
 }

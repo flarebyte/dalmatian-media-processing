@@ -4,7 +4,7 @@ import { V2dList } from '../src/vector-2d-list';
 import { VSegment } from '../src/visual-segment';
 
 const ptA = V2d.fromString('1/4 1/3');
-// const ptB = V2d.fromString('1/5 1/6');
+const ptB = V2d.fromString('1/5 1/6');
 const ptC = V2d.fromString('1/7 -1/9');
 const ptD = V2d.fromString('-1/13 -1/23');
 const ptE = V2d.fromString('1/17 4/5');
@@ -88,5 +88,29 @@ describe('visual-segment', () => {
     expect(
       VSegment.fromCubicBezier(ptE, ptC, ptD).rotate(r90).toDalmatianString()
     ).toStrictEqual('C 1/9 1/7 1/23 -1/13 -4/5 1/17');
+  });
+  it('should translate', () => {
+    expect(VSegment.fromClose().translate(ptE)).toStrictEqual(
+      VSegment.fromClose()
+    );
+    expect(
+      VSegment.fromLineTo(ptA).translate(ptB).toDalmatianString()
+    ).toStrictEqual('L 9/20 1/2');
+    expect(
+      VSegment.fromCubicBezier(ptE, ptC, ptD).translate(ptB).toDalmatianString()
+    ).toStrictEqual('C 12/35 1/18 8/65 17/138 22/85 29/30');
+  });
+  it('should scale', () => {
+    const double = new Fraction('2/1');
+    const half = new Fraction('1/2');
+    expect(VSegment.fromClose().scale(double)).toStrictEqual(
+      VSegment.fromClose()
+    );
+    expect(
+      VSegment.fromLineTo(ptA).scale(double).toDalmatianString()
+    ).toStrictEqual('L 1/2 2/3');
+    expect(
+      VSegment.fromCubicBezier(ptE, ptC, ptD).scale(half).toDalmatianString()
+    ).toStrictEqual('C 1/14 -1/18 -1/26 -1/46 1/34 2/5');
   });
 });
