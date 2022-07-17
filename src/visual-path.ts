@@ -58,4 +58,9 @@ export class VPath {
         .replace('L', 'M') + ' Z'
     );
   }
+  toSvgString(dpu: number, yPixOffset: number) {
+    return this._segments
+      .map((segment) => segment.toSvgString(dpu, yPixOffset))
+      .join(' ');
+  }
 }

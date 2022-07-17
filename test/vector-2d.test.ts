@@ -30,7 +30,9 @@ describe('vector-2d', () => {
     `);
   });
   it('should rotate', () => {
-    expect(ptA.rotate(new Fraction('1/2')).toString()).toStrictEqual(ptA.neg().toString());
+    expect(ptA.rotate(new Fraction('1/2')).toString()).toStrictEqual(
+      ptA.neg().toString()
+    );
     expect(ptA.rotate(new Fraction('1/4')).toString()).toStrictEqual(
       V2d.fromString('-1/3 1/4').toString()
     );
