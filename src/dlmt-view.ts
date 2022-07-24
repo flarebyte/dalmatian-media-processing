@@ -1,4 +1,5 @@
 import Fraction from 'fraction.js';
+import { assertName, asStringArray } from './split-utils';
 import { V2d } from './vector-2d';
 
 export class DlmtView {
@@ -76,5 +77,17 @@ export class DlmtView {
   }
   public get description(): string {
     return this._description;
+  }
+
+  static fromString(line: string){
+    const [other, description]  = asStringArray(line.split("->"), 2)
+    assertName(other, 'core' ,line)
+
+    const [cmd, viewId, langKey, langId, xyKey, x, y, widthKey, width, heightKey, height, flagsKey, flags, tagsKey, everything, butKey, tagsInfo] = other.split(" ", 16)
+   
+  }
+  public toString() {
+    const everything = this.everything ? 'all' : 'none';
+    return `view ${this.id} lang ${this.lang} xy ${this.xy} width ${this.width} height ${this.height} flags ${this.flags} tags ${this.tags} but ${everything} -> ${this.description}`;
   }
 }
