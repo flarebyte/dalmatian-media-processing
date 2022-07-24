@@ -3,6 +3,7 @@ export const isString = (value: unknown): value is string =>
 
 interface FixedLengthStringArray<L extends number> extends Array<string> {
   0: string;
+  1: string;
   length: L;
 }
 

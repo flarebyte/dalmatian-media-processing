@@ -80,7 +80,8 @@ export class DlmtView {
   }
 
   static fromString(line: string){
-    const [other, description]  = split2Strings(line,"->", ['left-of-description', 'description']).filter(isString);
+
+    const [other, description]  = split2Strings(line,"->", ['left-of-description', 'description']);
 
     const [cmd, viewId, langKey, langId, xyKey, x, y, widthKey, width, heightKey, height, flagsKey, flags, tagsKey, everything, butKey, tagsInfo] = other.split(" ", 16)
    
