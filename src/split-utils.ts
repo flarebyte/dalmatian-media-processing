@@ -1,34 +1,30 @@
-const isString = (value: unknown): value is string => typeof value === 'string';
+export const isString = (value: unknown): value is string =>
+  typeof value === 'string';
 
-/* Based on [type-fest](https://github.com/sindresorhus/type-fest/) 
- from [sindresorhus](https://github.com/sindresorhus)
-*/
+interface FixedLengthStringArray<L extends number> extends Array<string> {
+  0: string;
+  length: L;
+}
 
-type ArrayLengthMutationKeys = 'splice' | 'push' | 'pop' | 'shift' | 'unshift';
-
-type FixedLengthArray<
-  Element,
-  Length extends number,
-  ArrayPrototype = [Element, ...Element[]]
-> = Pick<
-  ArrayPrototype,
-  Exclude<keyof ArrayPrototype, ArrayLengthMutationKeys>
-> & {
-  [index: number]: Element;
-  [Symbol.iterator]: () => IterableIterator<Element>;
-  readonly length: Length;
-};
-
-export function splitString<L extends number>(
+function splitStringNotAssert<L extends number>(
   line: string,
   separator: string,
-  fields: FixedLengthArray<string, L>
-): FixedLengthArray<string, L> {
+  fields: FixedLengthStringArray<L>
+): string[] {
   const stringArray = line.split(separator).filter(isString);
   for (const [index, field] of fields.entries()) {
     if (typeof stringArray.at(index) === undefined) {
       throw new Error(`Field ${field} is expected in ${line}`);
     }
   }
-  const results =  fields.map((_field, index) => stringArray.at(index) || '');
+  return fields.map((_field, index) => stringArray.at(index) || '');
+}
+
+export function split2Strings(
+  line: string,
+  separator: string,
+  fields: FixedLengthStringArray<2>
+): FixedLengthStringArray<2> {
+  const items = splitStringNotAssert<2>(line, separator, fields);
+  return [items.at(0) || '', items.at(1) || ''];
 }
