@@ -1,14 +1,18 @@
 export const isString = (value: unknown): value is string =>
   typeof value === 'string';
 
-const replaceBrackets = (line: string): string => line.replace(/[\[\]]/g, '');
+const replaceBrackets = (line: string): string =>
+  line.replace('[', '').replace(']', '');
 
 export function splitStringAsMap<K>(
   line: string,
   separator: string,
   fields: readonly K[]
 ): Map<K, string> {
-  const stringArray = line.split(separator, fields.length).filter(isString);
+  const rawStringArray = line.split(separator).filter(isString);
+  const stringArray = rawStringArray
+    .slice(0, fields.length - 1)
+    .concat([rawStringArray.slice(fields.length - 1).join(separator)]);
   const result = new Map<K, string>();
 
   for (const [index, field] of fields.entries()) {

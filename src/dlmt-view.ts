@@ -116,7 +116,7 @@ export class DlmtView {
     }
 
     const fields = splitStringAsMap<LineViewGrammar>(
-      line,
+      other,
       ' ',
       lineViewGrammar
     );
@@ -147,7 +147,7 @@ export class DlmtView {
       this.xy
     } width ${this.width.toFraction()} height ${this.height.toFraction()} flags ${
       this.flags
-    } tags ${toDlmtArray(this.tags, ', ')} but ${everything} -> ${
+    } tags ${everything} but ${toDlmtArray(this.tags, ', ')} -> ${
       this.description
     }`;
   }
