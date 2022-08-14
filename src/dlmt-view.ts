@@ -1,5 +1,9 @@
 import Fraction from 'fraction.js';
-import { splitStringAsLeftAndRight, splitStringAsMap } from './split-utils';
+import {
+  parseDlmtArray,
+  splitStringAsLeftAndRight,
+  splitStringAsMap,
+} from './split-utils';
 import { V2d } from './vector-2d';
 
 const lineViewGrammar = [
@@ -122,6 +126,17 @@ export class DlmtView {
     console.assert(keyAndFields.get('flagsKey') !== 'flags', line);
     console.assert(keyAndFields.get('tagsKey') !== 'tags', line);
     console.assert(keyAndFields.get('butKey') !== 'but', line);
+    return new DlmtView({
+      id: keyAndFields.get('viewId') || '',
+      xy: V2d.fromString(`${keyAndFields.get('x')} ${keyAndFields.get('x')}`),
+      width: new Fraction(keyAndFields.get('width') || '0'),
+      height: new Fraction(keyAndFields.get('height') || '0'),
+      lang: keyAndFields.get('langId'),
+      description: description.trim(),
+      flags: keyAndFields.get('flags'),
+      everything: keyAndFields.get('everything') === 'all',
+      tags: parseDlmtArray(keyAndFields.get('tagsInfo') || ''),
+    });
   }
   public toString() {
     const everything = this.everything ? 'all' : 'none';

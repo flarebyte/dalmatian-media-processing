@@ -1,6 +1,8 @@
 export const isString = (value: unknown): value is string =>
   typeof value === 'string';
 
+const replaceBrackets = (line: string): string => line.replace(/[\[\]]/g, '');
+
 export function splitStringAsMap<K>(
   line: string,
   separator: string,
@@ -27,3 +29,12 @@ export const splitStringAsLeftAndRight = (
   line: string,
   separator: string = '->'
 ) => splitStringAsMap<LeftAndRight>(line, separator, leftAndRight);
+
+const trimStringArray = (rawLines: string, separator: string = ','): string[] =>
+  rawLines
+    .split(separator)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+
+export const parseDlmtArray = (line: string): string[] =>
+  trimStringArray(replaceBrackets(line));
