@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js';
-import { isString, split2Strings, splitString } from './split-utils';
+import { splitStringAsMap } from './split-utils';
 import { V2d } from './vector-2d';
 
 export class DlmtView {

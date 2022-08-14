@@ -1,72 +1,15 @@
 export const isString = (value: unknown): value is string =>
   typeof value === 'string';
 
-interface FixedLengthStringArray<L extends number> extends Array<string> {
-  0: string;
-  1: string;
-  length: L;
-}
-
-function splitStringNotAssert<L extends number>(
+export function splitStringAsMap<K>(
   line: string,
   separator: string,
-  fields: FixedLengthStringArray<L>
-): string[] {
+  fields: readonly K[]
+): Map<K, string> {
   const stringArray = line.split(separator).filter(isString);
+  const result = new Map<K, string>();
+
   for (const [index, field] of fields.entries()) {
-    if (typeof stringArray.at(index) === undefined) {
-      throw new Error(`Field ${field} is expected in ${line}`);
-    }
-  }
-  return fields.map((_field, index) => stringArray.at(index) || '');
-}
-
-function splitStringAsObject<L extends number>(
-  line: string,
-  separator: string,
-  fields: FixedLengthStringArray<L>
-): { [k: string]: string } {
-  const stringArray = line.split(separator).filter(isString);
-  for (const [index, field] of fields.entries()) {
-    if (typeof stringArray.at(index) === undefined) {
-      throw new Error(`Field ${field} is expected in ${line}`);
-    }
-  }
-  const keyValues = fields.map((field, index) => [
-    field,
-    stringArray.at(index) || '',
-  ]);
-  return Object.fromEntries(keyValues);
-}
-
-export function split2Strings(
-  line: string,
-  separator: string,
-  fields: FixedLengthStringArray<2>
-): FixedLengthStringArray<2> {
-  const items = splitStringNotAssert<2>(line, separator, fields);
-  return [items.at(0) || '', items.at(1) || ''];
-}
-
-export function split2StringsAsObject(
-  line: string,
-  separator: string,
-  fields: FixedLengthStringArray<2>
-): { [k: string]: string } {
-  const obj = splitStringAsObject<2>(line, separator, fields);
-  return obj;
-}
-const DalmatianDefaultSeparator = ' ';
-const colors = ['green', 'orange', 'red'] as const;
-type ColorsTuple = typeof colors;
-type Colors = ColorsTuple[number];
-type ColorsObject = Map<Colors, string>;
-
-export function splitColors(line: string): ColorsObject {
-  const stringArray = line.split(DalmatianDefaultSeparator).filter(isString);
-  const result = new Map<Colors, string>();
-
-  for (const [index, field] of colors.entries()) {
     const value = stringArray.at(index);
     if (value === undefined) {
       throw new Error(`Field ${field} is expected in ${line}`);
@@ -75,3 +18,12 @@ export function splitColors(line: string): ColorsObject {
   }
   return result;
 }
+
+const leftAndRight = ['left', 'right'] as const;
+type LeftAndRightTuple = typeof leftAndRight;
+type LeftAndRight = LeftAndRightTuple[number];
+
+export const splitStringAsLeftAndRight = (
+  line: string,
+  separator: string = '->'
+) => splitStringAsMap<LeftAndRight>(line, separator, leftAndRight);
