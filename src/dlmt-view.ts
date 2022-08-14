@@ -1,4 +1,5 @@
 import Fraction from 'fraction.js';
+import { assertMapValueEquals } from './assertion';
 import {
   parseDlmtArray,
   splitStringAsLeftAndRight,
@@ -113,29 +114,30 @@ export class DlmtView {
       throw new Error('splitStringAsLeftAndRight should have thrown');
     }
 
-    const keyAndFields = splitStringAsMap<LineViewGrammar>(
+    const fields = splitStringAsMap<LineViewGrammar>(
       line,
       ' ',
       lineViewGrammar
     );
-    console.assert(keyAndFields.get('cmd') !== 'view', line);
-    console.assert(keyAndFields.get('langKey') !== 'lang', line);
-    console.assert(keyAndFields.get('xyKey') !== 'xy', line);
-    console.assert(keyAndFields.get('widthKey') !== 'width', line);
-    console.assert(keyAndFields.get('heightKey') !== 'height', line);
-    console.assert(keyAndFields.get('flagsKey') !== 'flags', line);
-    console.assert(keyAndFields.get('tagsKey') !== 'tags', line);
-    console.assert(keyAndFields.get('butKey') !== 'but', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'cmd', 'view', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'langKey', 'lang', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'xyKey', 'xy', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'widthKey', 'width', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'heightKey', 'height', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'flagsKey', 'flags', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'tagsKey', 'tags', line);
+    assertMapValueEquals<LineViewGrammar>(fields, 'butKey', 'but', line);
+
     return new DlmtView({
-      id: keyAndFields.get('viewId') || '',
-      xy: V2d.fromString(`${keyAndFields.get('x')} ${keyAndFields.get('x')}`),
-      width: new Fraction(keyAndFields.get('width') || '0'),
-      height: new Fraction(keyAndFields.get('height') || '0'),
-      lang: keyAndFields.get('langId'),
+      id: fields.get('viewId') || '',
+      xy: V2d.fromString(`${fields.get('x')} ${fields.get('x')}`),
+      width: new Fraction(fields.get('width') || '0'),
+      height: new Fraction(fields.get('height') || '0'),
+      lang: fields.get('langId'),
       description: description.trim(),
-      flags: keyAndFields.get('flags'),
-      everything: keyAndFields.get('everything') === 'all',
-      tags: parseDlmtArray(keyAndFields.get('tagsInfo') || ''),
+      flags: fields.get('flags'),
+      everything: fields.get('everything') === 'all',
+      tags: parseDlmtArray(fields.get('tagsInfo') || ''),
     });
   }
   public toString() {
