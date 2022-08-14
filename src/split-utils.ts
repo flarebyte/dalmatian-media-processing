@@ -25,14 +25,17 @@ function splitStringAsObject<L extends number>(
   line: string,
   separator: string,
   fields: FixedLengthStringArray<L>
-): { [k: string]: string} {
+): { [k: string]: string } {
   const stringArray = line.split(separator).filter(isString);
   for (const [index, field] of fields.entries()) {
     if (typeof stringArray.at(index) === undefined) {
       throw new Error(`Field ${field} is expected in ${line}`);
     }
   }
-  const keyValues = fields.map((field, index) => [field, stringArray.at(index) || '']);
+  const keyValues = fields.map((field, index) => [
+    field,
+    stringArray.at(index) || '',
+  ]);
   return Object.fromEntries(keyValues);
 }
 
@@ -49,7 +52,26 @@ export function split2StringsAsObject(
   line: string,
   separator: string,
   fields: FixedLengthStringArray<2>
-):  { [k: string]: string} {
+): { [k: string]: string } {
   const obj = splitStringAsObject<2>(line, separator, fields);
   return obj;
+}
+const DalmatianDefaultSeparator = ' ';
+const colors = ['green', 'orange', 'red'] as const;
+type ColorsTuple = typeof colors;
+type Colors = ColorsTuple[number];
+type ColorsObject = Map<Colors, string>;
+
+export function splitColors(line: string): ColorsObject {
+  const stringArray = line.split(DalmatianDefaultSeparator).filter(isString);
+  const result = new Map<Colors, string>();
+
+  for (const [index, field] of colors.entries()) {
+    const value = stringArray.at(index);
+    if (value === undefined) {
+      throw new Error(`Field ${field} is expected in ${line}`);
+    }
+    result.set(field, value);
+  }
+  return result;
 }
