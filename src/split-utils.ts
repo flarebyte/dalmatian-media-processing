@@ -38,3 +38,6 @@ const trimStringArray = (rawLines: string, separator: string = ','): string[] =>
 
 export const parseDlmtArray = (line: string): string[] =>
   trimStringArray(replaceBrackets(line));
+
+export const toDlmtArray = (items: string[], separator: string = ','): string =>
+  `[ ${items.join(separator)} ]`;

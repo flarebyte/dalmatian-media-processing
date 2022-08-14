@@ -4,6 +4,7 @@ import {
   parseDlmtArray,
   splitStringAsLeftAndRight,
   splitStringAsMap,
+  toDlmtArray,
 } from './split-utils';
 import { V2d } from './vector-2d';
 
@@ -130,7 +131,7 @@ export class DlmtView {
 
     return new DlmtView({
       id: fields.get('viewId') || '',
-      xy: V2d.fromString(`${fields.get('x')} ${fields.get('x')}`),
+      xy: V2d.fromString(`${fields.get('x')} ${fields.get('y')}`),
       width: new Fraction(fields.get('width') || '0'),
       height: new Fraction(fields.get('height') || '0'),
       lang: fields.get('langId'),
@@ -142,6 +143,12 @@ export class DlmtView {
   }
   public toString() {
     const everything = this.everything ? 'all' : 'none';
-    return `view ${this.id} lang ${this.lang} xy ${this.xy} width ${this.width} height ${this.height} flags ${this.flags} tags ${this.tags} but ${everything} -> ${this.description}`;
+    return `view ${this.id} lang ${this.lang} xy ${
+      this.xy
+    } width ${this.width.toFraction()} height ${this.height.toFraction()} flags ${
+      this.flags
+    } tags ${toDlmtArray(this.tags, ', ')} but ${everything} -> ${
+      this.description
+    }`;
   }
 }
