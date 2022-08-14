@@ -6,7 +6,7 @@ export function splitStringAsMap<K>(
   separator: string,
   fields: readonly K[]
 ): Map<K, string> {
-  const stringArray = line.split(separator).filter(isString);
+  const stringArray = line.split(separator, fields.length).filter(isString);
   const result = new Map<K, string>();
 
   for (const [index, field] of fields.entries()) {

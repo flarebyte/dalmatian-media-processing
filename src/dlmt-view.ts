@@ -1,6 +1,28 @@
 import Fraction from 'fraction.js';
-import { splitStringAsMap } from './split-utils';
+import { splitStringAsLeftAndRight, splitStringAsMap } from './split-utils';
 import { V2d } from './vector-2d';
+
+const lineViewGrammar = [
+  'cmd',
+  'viewId',
+  'langKey',
+  'langId',
+  'xyKey',
+  'x',
+  'y',
+  'widthKey',
+  'width',
+  'heightKey',
+  'height',
+  'flagsKey',
+  'flags',
+  'tagsKey',
+  'everything',
+  'butKey',
+  'tagsInfo',
+] as const;
+type LineViewGrammarTuple = typeof lineViewGrammar;
+type LineViewGrammar = LineViewGrammarTuple[number];
 
 export class DlmtView {
   private _id: string;
@@ -79,12 +101,27 @@ export class DlmtView {
     return this._description;
   }
 
-  static fromString(line: string){
+  static fromString(line: string) {
+    const leftAndRight = splitStringAsLeftAndRight(line);
+    const other = leftAndRight.get('left');
+    const description = leftAndRight.get('right');
+    if (other === undefined || description === undefined) {
+      throw new Error('splitStringAsLeftAndRight should have thrown');
+    }
 
-    const [other, description]  = split2Strings(line,"->", ['left-of-description', 'description']);
-
-    const [cmd, viewId, langKey, langId, xyKey, x, y, widthKey, width, heightKey, height, flagsKey, flags, tagsKey, everything, butKey, tagsInfo] = other.split(" ", 16)
-   
+    const keyAndFields = splitStringAsMap<LineViewGrammar>(
+      line,
+      ' ',
+      lineViewGrammar
+    );
+    console.assert(keyAndFields.get('cmd') !== 'view', line);
+    console.assert(keyAndFields.get('langKey') !== 'lang', line);
+    console.assert(keyAndFields.get('xyKey') !== 'xy', line);
+    console.assert(keyAndFields.get('widthKey') !== 'width', line);
+    console.assert(keyAndFields.get('heightKey') !== 'height', line);
+    console.assert(keyAndFields.get('flagsKey') !== 'flags', line);
+    console.assert(keyAndFields.get('tagsKey') !== 'tags', line);
+    console.assert(keyAndFields.get('butKey') !== 'but', line);
   }
   public toString() {
     const everything = this.everything ? 'all' : 'none';
