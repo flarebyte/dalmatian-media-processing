@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js';
-import { V2d } from '../src/vector-2d';
+import { V2d } from '../src/vector-2d.js';
 
 const ptA = V2d.fromString('1/4 1/3');
 

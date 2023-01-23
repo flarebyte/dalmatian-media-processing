@@ -1,7 +1,7 @@
 import Fraction from 'fraction.js';
-import { compare2Fractions } from './fraction-math';
-import { V2d } from './vector-2d';
-import { V2dRect } from './vector-2d-rectangle';
+import { compare2Fractions } from './fraction-math.js';
+import { V2d } from './vector-2d.js';
+import { V2dRect } from './vector-2d-rectangle.js';
 
 const range = (n: number) => [...new Array(n).keys()]; // eslint-disable-line unicorn/no-new-array
 

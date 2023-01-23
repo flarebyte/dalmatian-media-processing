@@ -1,5 +1,5 @@
-import { V2dRect } from '../src/vector-2d-rectangle';
-import { V2d } from '../src/vector-2d';
+import { V2dRect } from '../src/vector-2d-rectangle.js';
+import { V2d } from '../src/vector-2d.js';
 
 const pointA = V2d.fromString('1/4 1/5');
 const pointB = V2d.fromString('1/2 2/5');

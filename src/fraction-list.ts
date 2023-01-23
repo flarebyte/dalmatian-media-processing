@@ -1,4 +1,4 @@
-import Fraction from 'fraction.js';
+import type Fraction from 'fraction.js';
 
 export class FractionList {
   private _values: Fraction[];

@@ -1,6 +1,5 @@
-import Fraction from 'fraction.js';
-import { V2d } from './vector-2d';
-import { countOfPoints, VSegment } from './visual-segment';
+import { V2d } from './vector-2d.js';
+import { countOfPoints, VSegment } from './visual-segment.js';
 
 const isV2d = (value: unknown): value is V2d =>
   typeof value !== 'undefined' || value !== null;

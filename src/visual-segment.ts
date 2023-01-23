@@ -1,6 +1,6 @@
 import Fraction from 'fraction.js';
-import { V2d } from './vector-2d';
-import { V2dList } from './vector-2d-list';
+import { V2d } from './vector-2d.js';
+import { V2dList } from './vector-2d-list.js';
 
 const fractionZero = new Fraction(0);
 export type SegmentShape = 'Z' | 'M' | 'L' | 'C' | 'S' | 'Q' | 'T' | 'E';

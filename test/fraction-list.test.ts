@@ -1,4 +1,4 @@
-import { FractionList } from '../src/fraction-list';
+import { FractionList } from '../src/fraction-list.js';
 
 describe('fraction-list', () => {
   it('should provide fromString', () => {

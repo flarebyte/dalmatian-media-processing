@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js';
-import { atanFract, cosFract, sinFract } from './fraction-math';
+import { atanFract, cosFract, sinFract } from './fraction-math.js';
 
 export class V2d {
   private _x: Fraction;

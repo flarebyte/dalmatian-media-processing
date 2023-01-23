@@ -1,7 +1,7 @@
 import Fraction from 'fraction.js';
-import { V2d } from '../src/vector-2d';
-import { V2dList } from '../src/vector-2d-list';
-import { VSegment } from '../src/visual-segment';
+import { V2d } from '../src/vector-2d.js';
+import { V2dList } from '../src/vector-2d-list.js';
+import { VSegment } from '../src/visual-segment.js';
 
 const ptA = V2d.fromString('1/4 1/3');
 const ptB = V2d.fromString('1/5 1/6');

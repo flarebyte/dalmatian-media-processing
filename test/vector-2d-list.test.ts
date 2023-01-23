@@ -1,6 +1,6 @@
 import Fraction from 'fraction.js';
-import { V2d } from '../src/vector-2d';
-import { V2dList } from '../src/vector-2d-list';
+import { V2d } from '../src/vector-2d.js';
+import { V2dList } from '../src/vector-2d-list.js';
 
 // const pt0 = V2d.fromString("0/1 0/1")
 const ptA = V2d.fromString('1/4 1/3');

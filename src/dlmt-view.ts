@@ -1,12 +1,12 @@
 import Fraction from 'fraction.js';
-import { assertMapValueEquals } from './assertion';
+import { assertMapValueEquals } from './assertion.js';
 import {
   parseDlmtArray,
   splitStringAsLeftAndRight,
   splitStringAsMap,
   toDlmtArray,
-} from './split-utils';
-import { V2d } from './vector-2d';
+} from './split-utils.js';
+import { V2d } from './vector-2d.js';
 
 const lineViewGrammar = [
   'cmd',
@@ -150,5 +150,8 @@ export class DlmtView {
     } tags ${everything} but ${toDlmtArray(this.tags, ', ')} -> ${
       this.description
     }`;
+  }
+  public acceptTags(){
+    
   }
 }

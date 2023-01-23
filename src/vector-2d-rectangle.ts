@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js';
-import { V2d } from './vector-2d';
+import { V2d } from './vector-2d.js';
 
 export class V2dRect {
   private _xy: V2d;

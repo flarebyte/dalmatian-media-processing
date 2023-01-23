@@ -1,6 +1,6 @@
 import Fraction from 'fraction.js';
-import { V2d } from '../src/vector-2d';
-import { VPath } from '../src/visual-path';
+import { V2d } from '../src/vector-2d.js';
+import { VPath } from '../src/visual-path.js';
 const ptE = V2d.fromString('1/17 4/5');
 
 describe('visual-path', () => {
